@@ -14,7 +14,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useNavigation } from "@react-navigation/native"
 import { toast } from "sonner-native"
-import { useTheme } from "../../context/ThemeContext"
 import { useAuth } from "../../context/AuthContext"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
@@ -25,7 +24,6 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState({ email: "", password: "" })
   const navigation = useNavigation()
-  const { colors } = useTheme()
   const { login } = useAuth()
 
   const validate = () => {
@@ -71,17 +69,17 @@ export default function LoginScreen() {
   }
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.keyboardAvoidingView}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.logoContainer}>
             <Image source={{ uri: "https://img.icons8.com/fluency/96/000000/chat.png" }} style={styles.logo} />
-            <Text style={[styles.appName, { color: colors.text }]}>Social Confidence</Text>
+            <Text style={styles.appName}>Social Confidence</Text>
           </View>
 
           <View style={styles.formContainer}>
-            <Text style={[styles.title, { color: colors.text }]}>Welcome Back</Text>
-            <Text style={[styles.subtitle, { color: colors.subtext }]}>Sign in to continue</Text>
+            <Text style={styles.title}>Welcome Back</Text>
+            <Text style={styles.subtitle}>Sign in to continue</Text>
 
             <View style={styles.form}>
               <Input
@@ -107,16 +105,16 @@ export default function LoginScreen() {
                 onPress={() => navigation.navigate("ForgotPassword")}
                 style={styles.forgotPasswordContainer}
               >
-                <Text style={[styles.forgotPassword, { color: colors.primary }]}>Forgot Password?</Text>
+                <Text style={styles.forgotPassword}>Forgot Password?</Text>
               </TouchableOpacity>
 
               <Button title="Sign In" onPress={handleLogin} loading={loading} style={styles.button} />
             </View>
 
             <View style={styles.dividerContainer}>
-              <View style={[styles.divider, { backgroundColor: colors.border }]} />
-              <Text style={[styles.dividerText, { color: colors.subtext }]}>OR</Text>
-              <View style={[styles.divider, { backgroundColor: colors.border }]} />
+              <View style={styles.divider} />
+              <Text style={styles.dividerText}>OR</Text>
+              <View style={styles.divider} />
             </View>
 
             <View style={styles.socialButtonsContainer}>
@@ -137,9 +135,9 @@ export default function LoginScreen() {
           </View>
 
           <View style={styles.footer}>
-            <Text style={[styles.footerText, { color: colors.subtext }]}>Don't have an account? </Text>
+            <Text style={styles.footerText}>Don't have an account? </Text>
             <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-              <Text style={[styles.footerLink, { color: colors.primary }]}>Sign Up</Text>
+              <Text style={styles.footerLink}>Sign Up</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -151,6 +149,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#121212",
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -172,6 +171,7 @@ const styles = StyleSheet.create({
   appName: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#FFFFFF",
   },
   formContainer: {
     marginBottom: 24,
@@ -180,10 +180,12 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 8,
+    color: "#FFFFFF",
   },
   subtitle: {
     fontSize: 16,
     marginBottom: 24,
+    color: "rgba(255,255,255,0.7)",
   },
   form: {
     marginBottom: 24,
@@ -194,6 +196,7 @@ const styles = StyleSheet.create({
   },
   forgotPassword: {
     fontSize: 14,
+    color: "#8A2BE2",
   },
   button: {
     marginBottom: 16,
@@ -206,10 +209,12 @@ const styles = StyleSheet.create({
   divider: {
     flex: 1,
     height: 1,
+    backgroundColor: "rgba(255,255,255,0.2)",
   },
   dividerText: {
     marginHorizontal: 16,
     fontSize: 14,
+    color: "rgba(255,255,255,0.7)",
   },
   socialButtonsContainer: {
     gap: 16,
@@ -225,9 +230,11 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
+    color: "rgba(255,255,255,0.7)",
   },
   footerLink: {
     fontSize: 14,
     fontWeight: "bold",
+    color: "#8A2BE2",
   },
 })

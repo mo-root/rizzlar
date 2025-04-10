@@ -14,7 +14,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useNavigation } from "@react-navigation/native"
 import { toast } from "sonner-native"
-import { useTheme } from "../../context/ThemeContext"
 import { useAuth } from "../../context/AuthContext"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
@@ -27,7 +26,6 @@ export default function SignupScreen() {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState({ name: "", email: "", password: "", confirmPassword: "" })
   const navigation = useNavigation()
-  const { colors } = useTheme()
   const { signup } = useAuth()
 
   const validate = () => {
@@ -83,7 +81,7 @@ export default function SignupScreen() {
   }
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.keyboardAvoidingView}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.logoContainer}>
@@ -91,8 +89,8 @@ export default function SignupScreen() {
           </View>
 
           <View style={styles.formContainer}>
-            <Text style={[styles.title, { color: colors.text }]}>Create Account</Text>
-            <Text style={[styles.subtitle, { color: colors.subtext }]}>Sign up to get started</Text>
+            <Text style={styles.title}>Create Account</Text>
+            <Text style={styles.subtitle}>Sign up to get started</Text>
 
             <View style={styles.form}>
               <Input
@@ -135,9 +133,9 @@ export default function SignupScreen() {
             </View>
 
             <View style={styles.dividerContainer}>
-              <View style={[styles.divider, { backgroundColor: colors.border }]} />
-              <Text style={[styles.dividerText, { color: colors.subtext }]}>OR</Text>
-              <View style={[styles.divider, { backgroundColor: colors.border }]} />
+              <View style={styles.divider} />
+              <Text style={styles.dividerText}>OR</Text>
+              <View style={styles.divider} />
             </View>
 
             <View style={styles.socialButtonsContainer}>
@@ -158,9 +156,9 @@ export default function SignupScreen() {
           </View>
 
           <View style={styles.footer}>
-            <Text style={[styles.footerText, { color: colors.subtext }]}>Already have an account? </Text>
+            <Text style={styles.footerText}>Already have an account? </Text>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <Text style={[styles.footerLink, { color: colors.primary }]}>Sign In</Text>
+              <Text style={styles.footerLink}>Sign In</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -172,6 +170,7 @@ export default function SignupScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#121212",
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -196,10 +195,12 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 8,
+    color: "#FFFFFF",
   },
   subtitle: {
     fontSize: 16,
     marginBottom: 24,
+    color: "rgba(255,255,255,0.7)",
   },
   form: {
     marginBottom: 24,
@@ -215,10 +216,12 @@ const styles = StyleSheet.create({
   divider: {
     flex: 1,
     height: 1,
+    backgroundColor: "rgba(255,255,255,0.2)",
   },
   dividerText: {
     marginHorizontal: 16,
     fontSize: 14,
+    color: "rgba(255,255,255,0.7)",
   },
   socialButtonsContainer: {
     gap: 16,
@@ -234,9 +237,11 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
+    color: "rgba(255,255,255,0.7)",
   },
   footerLink: {
     fontSize: 14,
     fontWeight: "bold",
+    color: "#8A2BE2",
   },
 })

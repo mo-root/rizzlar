@@ -4,7 +4,6 @@ import { useState, useRef } from "react"
 import { View, Text, StyleSheet, FlatList, Dimensions, TouchableOpacity, Image } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useNavigation } from "@react-navigation/native"
-import { useTheme } from "../../context/ThemeContext"
 import Button from "../../components/Button"
 
 const { width } = Dimensions.get("window")
@@ -34,14 +33,13 @@ export default function OnboardingScreen() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef(null)
   const navigation = useNavigation()
-  const { colors } = useTheme()
 
   const renderItem = ({ item }) => {
     return (
       <View style={[styles.slide, { width }]}>
         <Image source={{ uri: item.image }} style={styles.image} />
-        <Text style={[styles.title, { color: colors.text }]}>{item.title}</Text>
-        <Text style={[styles.description, { color: colors.subtext }]}>{item.description}</Text>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.description}>{item.description}</Text>
       </View>
     )
   }
@@ -68,10 +66,10 @@ export default function OnboardingScreen() {
   }
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.skipContainer}>
         <TouchableOpacity onPress={handleSkip}>
-          <Text style={[styles.skipText, { color: colors.primary }]}>Skip</Text>
+          <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
 
@@ -93,7 +91,7 @@ export default function OnboardingScreen() {
             style={[
               styles.indicator,
               {
-                backgroundColor: index === currentIndex ? colors.primary : colors.border,
+                backgroundColor: index === currentIndex ? "#8A2BE2" : "rgba(255,255,255,0.3)",
                 width: index === currentIndex ? 24 : 8,
               },
             ]}
@@ -115,6 +113,7 @@ export default function OnboardingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#121212",
   },
   skipContainer: {
     alignItems: "flex-end",
@@ -123,6 +122,7 @@ const styles = StyleSheet.create({
   skipText: {
     fontSize: 16,
     fontWeight: "600",
+    color: "#8A2BE2",
   },
   slide: {
     flex: 1,
@@ -140,12 +140,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 16,
+    color: "#FFFFFF",
   },
   description: {
     fontSize: 16,
     textAlign: "center",
     lineHeight: 24,
     paddingHorizontal: 20,
+    color: "rgba(255,255,255,0.7)",
   },
   indicatorContainer: {
     flexDirection: "row",

@@ -2,8 +2,7 @@
 
 import { useState } from "react"
 import { View, TextInput, Text, StyleSheet, TouchableOpacity, type ViewStyle, type TextStyle } from "react-native"
-import { Eye, EyeOff } from "react-native-feather"
-import { useTheme } from "../context/ThemeContext"
+import { EyeIcon, EyeOffIcon } from "./icons"
 
 interface InputProps {
   label?: string
@@ -44,7 +43,6 @@ export default function Input({
   onBlur,
   onFocus,
 }: InputProps) {
-  const { colors, isDark } = useTheme()
   const [isFocused, setIsFocused] = useState(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
@@ -64,13 +62,13 @@ export default function Input({
 
   return (
     <View style={[styles.container, style]}>
-      {label && <Text style={[styles.label, { color: colors.text }]}>{label}</Text>}
+      {label && <Text style={styles.label}>{label}</Text>}
       <View
         style={[
           styles.inputContainer,
           {
-            borderColor: error ? colors.error : isFocused ? colors.primary : colors.border,
-            backgroundColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.03)",
+            borderColor: error ? "#FF3B30" : isFocused ? "#8A2BE2" : "rgba(255,255,255,0.2)",
+            backgroundColor: "rgba(255,255,255,0.05)",
           },
         ]}
       >
@@ -78,14 +76,13 @@ export default function Input({
           style={[
             styles.input,
             {
-              color: colors.text,
               height: multiline ? numberOfLines * 24 : undefined,
               textAlignVertical: multiline ? "top" : "center",
             },
             inputStyle,
           ]}
           placeholder={placeholder}
-          placeholderTextColor={isDark ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.4)"}
+          placeholderTextColor="rgba(255,255,255,0.4)"
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry && !isPasswordVisible}
@@ -102,14 +99,14 @@ export default function Input({
         {secureTextEntry && (
           <TouchableOpacity onPress={togglePasswordVisibility} style={styles.eyeIcon}>
             {isPasswordVisible ? (
-              <EyeOff width={20} height={20} color={colors.subtext} />
+              <EyeOffIcon color="rgba(255,255,255,0.6)" size={20} />
             ) : (
-              <Eye width={20} height={20} color={colors.subtext} />
+              <EyeIcon color="rgba(255,255,255,0.6)" size={20} />
             )}
           </TouchableOpacity>
         )}
       </View>
-      {error && <Text style={[styles.error, { color: colors.error }]}>{error}</Text>}
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   )
 }
@@ -122,6 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 8,
     fontWeight: "500",
+    color: "#FFFFFF",
   },
   inputContainer: {
     flexDirection: "row",
@@ -135,6 +133,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
+    color: "#FFFFFF",
   },
   eyeIcon: {
     padding: 12,
@@ -142,5 +141,6 @@ const styles = StyleSheet.create({
   error: {
     fontSize: 12,
     marginTop: 4,
+    color: "#FF3B30",
   },
 })

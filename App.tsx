@@ -5,9 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { StyleSheet } from "react-native"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { Toaster } from "sonner-native"
-import { Home, User, Clock, Heart, Settings } from "react-native-feather"
 import { AuthProvider, useAuth } from "./context/AuthContext"
-import { ThemeProvider } from "./context/ThemeContext"
+import { HomeIcon, UserIcon, ClockIcon, HeartIcon, SettingsIcon } from "./components/icons"
 
 // Auth Screens
 import OnboardingScreen from "./screens/auth/OnboardingScreen"
@@ -76,18 +75,18 @@ function MainTabs() {
         },
         tabBarIcon: ({ color, size }) => {
           if (route.name === "Home") {
-            return <Home stroke={color} width={size} height={size} />
+            return <HomeIcon color={color} size={size} />
           } else if (route.name === "Profile") {
-            return <User stroke={color} width={size} height={size} />
+            return <UserIcon color={color} size={size} />
           } else if (route.name === "History") {
-            return <Clock stroke={color} width={size} height={size} />
+            return <ClockIcon color={color} size={size} />
           } else if (route.name === "Saved") {
-            return <Heart stroke={color} width={size} height={size} />
+            return <HeartIcon color={color} size={size} />
           } else if (route.name === "Settings") {
-            return <Settings stroke={color} width={size} height={size} />
+            return <SettingsIcon color={color} size={size} />
           }
           // Default return to avoid undefined
-          return <Home stroke={color} width={size} height={size} />
+          return <HomeIcon color={color} size={size} />
         },
       })}
     >
@@ -113,12 +112,10 @@ function AppNavigator() {
 export default function App() {
   return (
     <SafeAreaProvider style={styles.container}>
-      <ThemeProvider>
-        <AuthProvider>
-          <Toaster />
-          <AppNavigator />
-        </AuthProvider>
-      </ThemeProvider>
+      <AuthProvider>
+        <Toaster />
+        <AppNavigator />
+      </AuthProvider>
     </SafeAreaProvider>
   )
 }

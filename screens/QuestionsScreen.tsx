@@ -4,8 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated, Dimensions } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useNavigation, useRoute } from "@react-navigation/native"
-import { ArrowLeft } from "react-native-feather"
-import { useTheme } from "../context/ThemeContext"
+import { ArrowLeftIcon } from "../components/icons"
 import Button from "../components/Button"
 
 const questions = [
@@ -32,7 +31,6 @@ export default function QuestionsScreen() {
   const { situation } = route.params
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState({})
-  const { colors } = useTheme()
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(Dimensions.get("window").width)).current
 
@@ -89,29 +87,28 @@ export default function QuestionsScreen() {
   }
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={goBack} style={styles.backButton}>
-          <ArrowLeft width={24} height={24} color={colors.text} />
+          <ArrowLeftIcon color="#FFFFFF" size={24} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: colors.text }]}>Question {currentQuestion + 1}</Text>
+        <Text style={styles.headerTitle}>Question {currentQuestion + 1}</Text>
         <View style={{ width: 24 }} />
       </View>
 
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.progressContainer}>
-          <View style={[styles.progressBar, { backgroundColor: "rgba(138, 43, 226, 0.2)" }]}>
+          <View style={styles.progressBar}>
             <View
               style={[
                 styles.progress,
                 {
                   width: `${((currentQuestion + 1) / questions.length) * 100}%`,
-                  backgroundColor: colors.primary,
                 },
               ]}
             />
           </View>
-          <Text style={[styles.progressText, { color: colors.subtext }]}>
+          <Text style={styles.progressText}>
             {currentQuestion + 1} of {questions.length}
           </Text>
         </View>
@@ -125,7 +122,7 @@ export default function QuestionsScreen() {
             },
           ]}
         >
-          <Text style={[styles.question, { color: colors.text }]}>{questions[currentQuestion].question}</Text>
+          <Text style={styles.question}>{questions[currentQuestion].question}</Text>
 
           <View style={styles.optionsContainer}>
             {questions[currentQuestion].options.map((option, index) => (
@@ -148,6 +145,7 @@ export default function QuestionsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#121212",
   },
   header: {
     flexDirection: "row",
@@ -162,6 +160,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: "600",
+    color: "#FFFFFF",
   },
   content: {
     padding: 20,
@@ -173,17 +172,20 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     height: 6,
+    backgroundColor: "rgba(255,255,255,0.1)",
     borderRadius: 3,
     marginBottom: 8,
     overflow: "hidden",
   },
   progress: {
     height: "100%",
+    backgroundColor: "#8A2BE2",
     borderRadius: 3,
   },
   progressText: {
     fontSize: 14,
     textAlign: "center",
+    color: "rgba(255,255,255,0.7)",
   },
   questionContainer: {
     flex: 1,
@@ -194,6 +196,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 40,
     textAlign: "center",
+    color: "#FFFFFF",
   },
   optionsContainer: {
     gap: 12,

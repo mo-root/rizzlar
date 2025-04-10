@@ -1,8 +1,5 @@
-"use client"
-
 import type React from "react"
 import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, type ViewStyle, type TextStyle } from "react-native"
-import { useTheme } from "../context/ThemeContext"
 
 interface ButtonProps {
   title: string
@@ -27,8 +24,6 @@ export default function Button({
   textStyle,
   icon,
 }: ButtonProps) {
-  const { colors } = useTheme()
-
   const getButtonStyle = () => {
     const baseStyle: ViewStyle = {
       ...styles.button,
@@ -48,19 +43,19 @@ export default function Button({
       case "primary":
         return {
           ...baseStyle,
-          backgroundColor: colors.primary,
+          backgroundColor: "#8A2BE2",
         }
       case "secondary":
         return {
           ...baseStyle,
-          backgroundColor: colors.secondary,
+          backgroundColor: "#6A1CB2",
         }
       case "outline":
         return {
           ...baseStyle,
           backgroundColor: "transparent",
           borderWidth: 1,
-          borderColor: colors.primary,
+          borderColor: "#8A2BE2",
         }
       case "ghost":
         return {
@@ -83,7 +78,7 @@ export default function Button({
       case "ghost":
         return {
           ...baseStyle,
-          color: colors.primary,
+          color: "#8A2BE2",
         }
       default:
         return {
@@ -126,7 +121,7 @@ export default function Button({
       activeOpacity={0.8}
     >
       {loading ? (
-        <ActivityIndicator color={variant === "outline" || variant === "ghost" ? colors.primary : "#FFFFFF"} />
+        <ActivityIndicator color={variant === "outline" || variant === "ghost" ? "#8A2BE2" : "#FFFFFF"} />
       ) : (
         <>
           {icon && icon}

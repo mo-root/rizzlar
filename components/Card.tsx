@@ -1,8 +1,5 @@
-"use client"
-
 import type React from "react"
 import { View, Text, StyleSheet, type ViewStyle, type TextStyle } from "react-native"
-import { useTheme } from "../context/ThemeContext"
 
 interface CardProps {
   title?: string
@@ -15,23 +12,12 @@ interface CardProps {
 }
 
 export default function Card({ title, subtitle, children, style, titleStyle, subtitleStyle, contentStyle }: CardProps) {
-  const { colors, isDark } = useTheme()
-
   return (
-    <View
-      style={[
-        styles.card,
-        {
-          backgroundColor: isDark ? colors.card : "#FFFFFF",
-          shadowColor: isDark ? "#000000" : "#000000",
-        },
-        style,
-      ]}
-    >
+    <View style={[styles.card, style]}>
       {(title || subtitle) && (
         <View style={styles.header}>
-          {title && <Text style={[styles.title, { color: colors.text }, titleStyle]}>{title}</Text>}
-          {subtitle && <Text style={[styles.subtitle, { color: colors.subtext }, subtitleStyle]}>{subtitle}</Text>}
+          {title && <Text style={[styles.title, titleStyle]}>{title}</Text>}
+          {subtitle && <Text style={[styles.subtitle, subtitleStyle]}>{subtitle}</Text>}
         </View>
       )}
       <View style={[styles.content, contentStyle]}>{children}</View>
@@ -41,8 +27,10 @@ export default function Card({ title, subtitle, children, style, titleStyle, sub
 
 const styles = StyleSheet.create({
   card: {
+    backgroundColor: "rgba(255,255,255,0.08)",
     borderRadius: 16,
     overflow: "hidden",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -54,15 +42,17 @@ const styles = StyleSheet.create({
   header: {
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: "rgba(0,0,0,0.05)",
+    borderBottomColor: "rgba(255,255,255,0.05)",
   },
   title: {
     fontSize: 18,
     fontWeight: "600",
     marginBottom: 4,
+    color: "#FFFFFF",
   },
   subtitle: {
     fontSize: 14,
+    color: "rgba(255,255,255,0.7)",
   },
   content: {
     padding: 16,

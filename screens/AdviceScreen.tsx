@@ -4,12 +4,11 @@ import { useEffect, useState, useCallback } from "react"
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, Share } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useRoute, useNavigation } from "@react-navigation/native"
-import { ArrowLeft, Share2, Heart } from "react-native-feather"
-import { useTheme } from "../context/ThemeContext"
+import { toast } from "sonner-native"
 import { useAuth } from "../context/AuthContext"
+import { ArrowLeftIcon, HeartIcon, ShareIcon } from "../components/icons"
 import Button from "../components/Button"
 import Card from "../components/Card"
-import { toast } from "sonner-native"
 
 export default function AdviceScreen() {
   const route = useRoute()
@@ -18,7 +17,6 @@ export default function AdviceScreen() {
   const [advice, setAdvice] = useState("")
   const [loading, setLoading] = useState(true)
   const [saved, setSaved] = useState(false)
-  const { colors } = useTheme()
   const { user } = useAuth()
 
   // Define generateAdvice as a useCallback to avoid ESLint warnings
@@ -84,50 +82,47 @@ Please provide a short, respectful, and practical suggestion (max 4 sentences) o
   }
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <ArrowLeft width={24} height={24} color={colors.text} />
+          <ArrowLeftIcon color="#FFFFFF" size={24} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: colors.text }]}>Your Advice</Text>
+        <Text style={styles.headerTitle}>Your Advice</Text>
         <View style={{ width: 24 }} />
       </View>
 
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={[styles.title, { color: colors.text }]}>Your Approach Strategy</Text>
+        <Text style={styles.title}>Your Approach Strategy</Text>
 
         {loading ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color={colors.primary} />
-            <Text style={[styles.loadingText, { color: colors.subtext }]}>Generating personalized advice...</Text>
+            <ActivityIndicator size="large" color="#8A2BE2" />
+            <Text style={styles.loadingText}>Generating personalized advice...</Text>
           </View>
         ) : (
           <>
             <Card style={styles.adviceContainer}>
-              <Text style={[styles.adviceText, { color: colors.text }]}>{advice}</Text>
+              <Text style={styles.adviceText}>{advice}</Text>
 
               <View style={styles.actionsRow}>
                 <TouchableOpacity onPress={handleSave} style={styles.actionButton}>
-                  <Heart
-                    width={20}
-                    height={20}
-                    color={saved ? "#FF6B6B" : colors.subtext}
+                  <HeartIcon
+                    color={saved ? "#FF6B6B" : "rgba(255,255,255,0.7)"}
                     fill={saved ? "#FF6B6B" : "none"}
+                    size={20}
                   />
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={handleShare} style={styles.actionButton}>
-                  <Share2 width={20} height={20} color={colors.subtext} />
+                  <ShareIcon color="rgba(255,255,255,0.7)" size={20} />
                 </TouchableOpacity>
               </View>
             </Card>
 
             {user?.plan === "free" && (
               <Card style={styles.upgradeCard}>
-                <Text style={[styles.upgradeTitle, { color: colors.text }]}>Want more personalized advice?</Text>
-                <Text style={[styles.upgradeText, { color: colors.subtext }]}>
-                  Upgrade to Premium for unlimited advice and advanced features.
-                </Text>
+                <Text style={styles.upgradeTitle}>Want more personalized advice?</Text>
+                <Text style={styles.upgradeText}>Upgrade to Premium for unlimited advice and advanced features.</Text>
                 <Button title="Upgrade Now" onPress={handleUpgrade} size="small" style={styles.upgradeButton} />
               </Card>
             )}
@@ -153,6 +148,7 @@ Please provide a short, respectful, and practical suggestion (max 4 sentences) o
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#121212",
   },
   header: {
     flexDirection: "row",
@@ -167,6 +163,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: "600",
+    color: "#FFFFFF",
   },
   content: {
     padding: 20,
@@ -177,6 +174,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 24,
     textAlign: "center",
+    color: "#FFFFFF",
   },
   loadingContainer: {
     flex: 1,
@@ -187,6 +185,7 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 20,
     fontSize: 16,
+    color: "rgba(255,255,255,0.7)",
   },
   adviceContainer: {
     marginVertical: 24,
@@ -194,6 +193,7 @@ const styles = StyleSheet.create({
   adviceText: {
     fontSize: 18,
     lineHeight: 28,
+    color: "#FFFFFF",
   },
   actionsRow: {
     flexDirection: "row",
@@ -212,10 +212,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
     marginBottom: 8,
+    color: "#FFFFFF",
   },
   upgradeText: {
     fontSize: 14,
     marginBottom: 16,
+    color: "rgba(255,255,255,0.7)",
   },
   upgradeButton: {
     alignSelf: "flex-end",
