@@ -1,29 +1,29 @@
 {
   "expo": {
-    "name": "a0-project",
-    "slug": "snack-bb4084bd-9365-4e72-b0e8-3202f4ec67ce",
+    "name": "Social Confidence",
+    "slug": "social-confidence-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#121212"
     },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#121212"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Quickly generate React Native components with AI"
+    "description": "Your personal coach for navigating social situations with confidence and authenticity."
   }
 }
